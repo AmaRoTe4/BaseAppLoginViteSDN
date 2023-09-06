@@ -1,30 +1,18 @@
-
-interface DatosCliente {
+export interface Ruta {
+  id: string;
+  url: string;
+  titulo: string;
+}
+export interface Producto {
+  id: string;
   nombre: string;
-  telefono: string;
-  correo: string;
-  id_localidad: number;
-  direccion: string;
-  nobre_del_local: string;
-  clave: string;
-  salt: string;
-}
-
-interface Servicio {
-  id_servicio: number;
-  inicio_de_actividad: string;
-  coutas_pagadas: Pago[];
-  valor_de_cuotas: number;
-  id_server: number;
-}
-
-export interface User {
-  id?: string;
-  _id?: string;
-  cliente: DatosCliente;
-  servicios: Servicio[];
-  otros: object;
+  precio: number;
+  costo: number;
+  vendidos: number;
   estado: boolean;
-  id_vendedor: number;
-  estado_vista?: number;
+}
+
+export interface Nota {
+   id: string ;
+   text:string
 }
