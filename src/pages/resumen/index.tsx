@@ -1,11 +1,10 @@
 import { useState } from "react"
+import useProductos from "../../hooks/useProductos"
 
 export default function Resumenes() {
+    const { totalVendido , totalCosto } = useProductos()
     const [cambio, setCambio] = useState<number>(0)
     const [otrosGastos, setOtrosGastos] = useState<number>(0)
-
-    const [totalVentas, setTotalVentas] = useState<number>(1000)
-    const [costoTotales, setCostoTotales] = useState<number>(0)
 
     return (
         <div className="w-screen h-screen flex flex-col overflow-x-hidden pb-10">
@@ -17,7 +16,7 @@ export default function Resumenes() {
                 <div className="w-full flex gap-2">
                     <h4 className="w-[200px]">Valor total vendido:</h4>
                     <p className="w-[10px]">$</p>
-                    <h4 className="w-[100px]">{totalVentas}</h4>
+                    <h4 className="w-[100px]">{totalVendido}</h4>
                 </div>
                 <div className="w-full flex gap-2">
                     <h4 className="w-[200px]">Cambio:</h4>
@@ -33,7 +32,7 @@ export default function Resumenes() {
                 <div className="w-full flex gap-2 pt-1 border-t border-black">
                     <h4 className="w-[200px]">Valor total neto:</h4>
                     <p className="w-[10px]">$</p>
-                    <h4 className="w-[100px]">{totalVentas + cambio}</h4>
+                    <h4 className="w-[100px]">{totalVendido + cambio}</h4>
                 </div>
             </section>
             <section className="px-5 pt-2 py-4">
@@ -41,12 +40,12 @@ export default function Resumenes() {
                 <div className="w-full flex gap-2">
                     <h4 className="w-[200px]">Valor total vendido:</h4>
                     <p className="w-[10px]">$</p>
-                    <h4 className="w-[100px]">{totalVentas}</h4>
+                    <h4 className="w-[100px]">{totalVendido}</h4>
                 </div>
                 <div className="w-full flex gap-2">
                     <h4 className="w-[200px]">Valor total de costo:</h4>
                     <p className="w-[10px]">$</p>
-                    <h4 className="w-[100px]">{costoTotales}</h4>
+                    <h4 className="w-[100px]">{totalCosto}</h4>
                 </div>
                 <div className="w-full flex gap-2">
                     <h4 className="w-[200px]">Otros gastos:</h4>
@@ -62,22 +61,9 @@ export default function Resumenes() {
                 <div className="w-full flex gap-2 pt-1 border-t border-black">
                     <h4 className="w-[200px]">Ganancia estimada:</h4>
                     <p className="w-[10px]">$</p>
-                    <h4 className="w-[100px]">{totalVentas - costoTotales - otrosGastos}</h4>
+                    <h4 className="w-[100px]">{totalVendido - totalCosto - otrosGastos}</h4>
                 </div>
             </section>
         </div>
     )
 }
-//<div>
-//    <div>
-//        total de valor de las ventas
-//        <input type="text"
-//        //cambio
-//        />
-//        total
-//    </div>
-//    <div>
-//        todos los productos
-//        total vendidos, subtotal en precio por vendido
-//    </div>
-//</div>

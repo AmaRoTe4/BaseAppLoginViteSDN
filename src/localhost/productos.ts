@@ -1,5 +1,5 @@
 import { Producto } from "../types";
-import { getIdProductos, initialIdProductos } from "./ids";
+import { v4 as uuidv4 } from "uuid";
 
 const name_repo = "xx-general-productos-xx";
 
@@ -39,12 +39,7 @@ export const valorTotalProductos = async () => {
 
 export const addProducto = async (producto: Producto) => {
   let data = await getAllProductos();
-
-  let id = getIdProductos();
-  if (id == null) {
-    initialIdProductos();
-    producto.id = "0";
-  } else producto.id = id;
+  producto.id = uuidv4();
 
   data.push(producto);
   localStorage.setItem(name_repo, JSON.stringify(data));
@@ -65,7 +60,12 @@ export const deleteAllProductos = async () => {
 
 export const updateProductoElement = async (
   id: string,
-  newProducto: { nombre: string; precio: number; vendidos: number }
+  newProducto: {
+    nombre: string;
+    precio: number;
+    vendidos: number;
+    costo: number;
+  }
 ) => {
   const [repo, newData] = await getDataUpdate(id);
 
@@ -75,13 +75,24 @@ export const updateProductoElement = async (
     newData.precio = newProducto.precio;
   if (newData.vendidos !== newProducto.vendidos)
     newData.vendidos = newProducto.vendidos;
+  if (newData.costo !== newProducto.costo) newData.costo = newProducto.costo;
   guardarData(repo, newData);
 };
 
 export const updateEstadoProducto = async (id: string, newEstado: boolean) => {
   const [repo, newData] = await getDataUpdate(id);
-  newData.habilitado = newEstado;
+  newData.estado = newEstado;
   guardarData(repo, newData);
+};
+
+export const updateCantidadA0Producto = async () => {
+  const productos = await getAllProductos();
+
+  productos.forEach(async (n: Producto) => {
+    const [repo, newData] = await getDataUpdate(n.id);
+    newData.cantidad = 0;
+    guardarData(repo, newData);
+  });
 };
 
 export const addUnoCantidadProducto = async (id: string) => {
@@ -92,6 +103,6 @@ export const addUnoCantidadProducto = async (id: string) => {
 
 export const removeUnoCantidadProducto = async (id: string) => {
   const [repo, newData] = await getDataUpdate(id);
-  newData.vendidos -= 1;
+  if (newData.vendidosn > 0) newData.vendidos -= 1;
   guardarData(repo, newData);
 };

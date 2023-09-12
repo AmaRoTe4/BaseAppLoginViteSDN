@@ -1,8 +1,7 @@
 import { Nota } from "../types";
-import { getIdNotas, id_incremente_notas, initialIdNotas } from "./ids";
+import { v4 as uuidv4 } from 'uuid';
 
 const name_repo = "xx-general-notas-xx";
-
 
 export const getAllNotas = async () => {
   const respuesta = localStorage.getItem(name_repo);
@@ -15,15 +14,10 @@ export const addNota = async (nota: Nota) => {
   if (respuesta == null) respuesta = "[]";
   let data = JSON.parse(respuesta);
 
-  let id = getIdNotas();
-  if (id == null) {
-    initialIdNotas();
-    nota.id = "0";
-  } else nota.id = id;
+  nota.id = uuidv4();
 
   data.push(nota);
   localStorage.setItem(name_repo, JSON.stringify(data));
-  id_incremente_notas();
   return nota;
 };
 

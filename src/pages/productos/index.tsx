@@ -1,182 +1,156 @@
-import { useState } from "react"
 import { Producto } from "../../types"
 import Xmark_black from "../../svg/xmark_black";
-import Update_black from "../../svg/update_black";
+import TablaProductos from "../../components/TablaProductos";
+import New_black from "../../svg/new_black";
+import { inicialStateProducto } from "../../const/productos";
+import useProductos from "../../hooks/useProductos";
+import { useState } from "react";
 
 export default function Productos() {
-    const [prodAction, setProdAction] = useState<Producto | null>(null)
-    const [newProd, setNewProd] = useState<Producto>(
-        {
-            id: "",
-            nombre: "",
-            precio: 0,
-            costo: 0,
-            vendidos: 0,
-            estado: true,
-        }
-    )
-    const [allProductos, setAllProductos] = useState<Producto[]>([
-        {
-            id: "string",
-            nombre: "string",
-            precio: 100,
-            costo: 100,
-            vendidos: 0,
-            estado: true,
-        }
-    ])
-
-    const HandlerProd = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const propiedad = e.target?.id
-        const value = propiedad !== "nombre" ? Number(e.target?.value) : e.target.value
-
-        if (!propiedad || !value) return;
-        if (prodAction)
-            return setProdAction({ ...prodAction, [propiedad]: value });
-        setNewProd({ ...newProd, [propiedad]: value })
-    }
+    const [permitirDelete, setPermitirDelete] = useState<boolean>(true)
+    const {
+        prodAction,
+        allProductos,
+        renderForm,
+        selectedToForm,
+        HandlerProdutos,
+        ActionProducto,
+        updateEstadoProductoHook,
+        deleteProductoForId,
+        resetAllProducto,
+        deleteAllProductosHook
+    } = useProductos()
 
     return (
         <div className="px-5">
-            <nav className="w-full pt-3 pb-5 flex justify-center">
+            <nav className="w-full pt-3 pb-5 flex justify-between items-center">
+                <span className="h-[25px] w-[25px]"></span>
                 <h1 className="text-[35px] font-bold">Productos</h1>
+                <button type="button" onClick={() => selectedToForm()}>
+                    <New_black className="h-[25px] w-[25px]" />
+                </button>
             </nav>
-            <main className="border-y border-black overflow-y-scroll w-full flex flex-col items-center">
-                <div className="relative overflow-x-auto w-full min-h-[330px] max-h-[330px]">
-                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" className="px-6 py-3">
-                                    Nombre
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Precio
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Costo
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Vendidos
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Habilitado
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Actualizar
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Eliminar
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {allProductos.length > 0 && allProductos.map((n) =>
-                                <tr key={n.id}>
-                                    <th scope="col" className="px-6 py-2">
-                                        {n.nombre}
-                                    </th>
-                                    <th scope="col" className="px-6 py-2">
-                                        {n.precio}
-                                    </th>
-                                    <th scope="col" className="px-6 py-2">
-                                        {n.costo}
-                                    </th>
-                                    <th scope="col" className="px-6 py-2">
-                                        {n.vendidos}
-                                    </th>
-                                    <th scope="col" className="px-6 py-2">
-                                        <button
-                                            className={`
-                                                ${n.estado ? "bg-green-600" : "bg-red-600"}
-                                                px-2 py-1 text-black rounded-md
-                                                `}
-                                            type="button"
-                                        >
-                                            {n.estado.toString()}
-                                        </button>
-                                    </th>
-                                    <th scope="col" className="px-6 py-2">
-                                        <button
-                                            className={`px-2 py-1 text-black rounded-md`}
-                                            type="button"
-                                            onClick={() => setProdAction(n)}
-                                        >
-                                            <Update_black className="h-[25px]" />
-                                        </button>
-                                    </th>
-                                    <th scope="col" className="px-6 py-2">
-                                        <button
-                                            className={`px-2 py-1 text-black rounded-md`}
-                                            type="button"
-                                        >
-                                            <Xmark_black className="h-[25px]" />
-                                        </button>
-                                    </th>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-                {allProductos.length <= 0 &&
-                    <h3 className="text-[35px] opacity-20 font-bold">Productos...</h3>
-                }
+            <main className="border border-black overflow-y-scroll w-full flex flex-col items-center pb-2">
+                <TablaProductos
+                    deleteProductoForId={deleteProductoForId}
+                    updateEstadoProductoHook={updateEstadoProductoHook}
+                    setProductoUpdate={selectedToForm}
+                    allProductos={allProductos}
+                />
             </main>
-            <section className="w-full flex flex-col justify-center items-center">
-                <nav className="w-full pt-3 pb-2 flex justify-center">
-                    <h2 className="text-[16px] font-bold">Formulario para {prodAction ? "editar" : "crear"}</h2>
-                </nav>
-                <form className="w-full md:w-[300px] flex flex-col gap-3 py-3">
-                    <input
-                        className="border border-black px-2 py-1 rounded-sm"
-                        type="text"
-                        name="nombre"
-                        id="nombre"
-                        placeholder="nombre"
-                        value={prodAction ? prodAction.nombre : newProd.nombre}
-                        onChange={e => HandlerProd(e)}
-                    />
-                    <input
-                        className="border border-black px-2 py-1 rounded-sm"
-                        type="number"
-                        name="precio"
-                        id="precio"
-                        placeholder="precio"
-                        value={prodAction ? prodAction.precio : newProd.precio}
-                        onChange={e => HandlerProd(e)}
-                    />
-                    <input
-                        className="border border-black px-2 py-1 rounded-sm"
-                        type="number"
-                        name="costo"
-                        id="costo"
-                        placeholder="costo"
-                        value={prodAction ? prodAction.costo : newProd.costo}
-                        onChange={e => HandlerProd(e)}
-                    />
-                    <input
-                        className="border border-black px-2 py-1 rounded-sm"
-                        type="number"
-                        name="vendidos"
-                        id="vendidos"
-                        placeholder="vendidos"
-                        value={prodAction ? prodAction.vendidos : newProd.vendidos}
-                        onChange={e => HandlerProd(e)}
-                    />
-                    <button type="button" className="border border-black px-2 py-1 rounded-sm bg-green-500">
-                        {prodAction ? "Editar" : "Crear"}
-                    </button>
-                </form>
-            </section>
-            <footer className="pt-2 py-10">
+            <Formulario
+                ActionProducto={ActionProducto}
+                producto={prodAction}
+                render={renderForm}
+                HandlerProdutos={HandlerProdutos}
+                EndToForm={selectedToForm}
+            />
+            <footer className="pt-32 py-10">
                 <span className="w-full md:w-[250px] flex flex-col gap-3 py-3">
-                    <button type="button" className="border border-black px-2 py-1 rounded-sm bg-yellow-500">
+                    <button
+                        onClick={() => setPermitirDelete(n => !n)}
+                        type="button"
+                        className={`${permitirDelete ? "bg-red-500" : "bg-green-500"} border border-black px-2 py-1 rounded-sm`}
+                    >
+                        {permitirDelete ? "Habilitar borrado" : "Desabilitar borrado"}
+                    </button>
+                    <button
+                        disabled={permitirDelete}
+                        onClick={async () => await resetAllProducto()}
+                        type="button"
+                        className={`${permitirDelete && "opacity-80"} border border-black px-2 py-1 rounded-sm bg-yellow-500`}
+                    >
                         Borrar todas las ventas <span className="font-bold">(reset)</span>
                     </button>
-                    <button type="button" className="border border-black px-2 py-1 rounded-sm bg-yellow-500">
+                    <button
+                        disabled={permitirDelete}
+                        onClick={async () => await deleteAllProductosHook()}
+                        type="button"
+                        className={`${permitirDelete && "opacity-80"} border border-black px-2 py-1 rounded-sm bg-yellow-500`}
+                    >
                         Borrar todo
                     </button>
                 </span>
             </footer>
         </div>
+    )
+}
+
+interface PropForm {
+    producto: Producto
+    EndToForm: (prod: Producto | undefined, state: boolean) => void
+    render: boolean
+    HandlerProdutos: (e: React.ChangeEvent<HTMLInputElement>) => void
+    ActionProducto: (e: React.FormEvent<HTMLFormElement>) => void
+}
+
+const Formulario = ({ producto, EndToForm, render, HandlerProdutos, ActionProducto }: PropForm) => {
+    if (!render) return <></>
+    return (
+        <section className="w-full flex flex-col justify-center items-center">
+            <nav className="w-full pt-3 pb-2 flex items-center justify-between">
+                <button type="button" onClick={() => EndToForm(inicialStateProducto, false)}>
+                    <Xmark_black className="h-[25px] w-[25px]" />
+                </button>
+                <h2 className="text-[16px] font-bold">Formulario para {producto.id !== "" ? "editar" : "crear"}</h2>
+                <span className="h-[25px] w-[25px]">
+                </span>
+            </nav>
+            <form className="w-full md:w-[300px] flex flex-col gap-2 py-3" onSubmit={(e) => ActionProducto(e)}>
+                <div className="w-full flex flex-col">
+                    <label>Nombre</label>
+                    <input
+                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        placeholder="nombre"
+                        value={producto.nombre}
+                        onChange={e => HandlerProdutos(e)}
+                    />
+                </div>
+                <div className="w-full flex flex-col">
+                    <label>Precio</label>
+                    <input
+                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        type="number"
+                        name="precio"
+                        id="precio"
+                        placeholder="precio"
+                        value={producto.precio}
+                        onChange={e => HandlerProdutos(e)}
+                    />
+                </div>
+                <div className="w-full flex flex-col">
+                    <label>Costo</label>
+                    <input
+                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        type="number"
+                        name="costo"
+                        id="costo"
+                        placeholder="costo"
+                        value={producto.costo}
+                        onChange={e => HandlerProdutos(e)}
+                    />
+                </div>
+                <div className="w-full flex flex-col">
+                    <label>Vendidos</label>
+                    <input
+                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        type="number"
+                        name="vendidos"
+                        id="vendidos"
+                        placeholder="vendidos"
+                        value={producto.vendidos}
+                        onChange={e => HandlerProdutos(e)}
+                    />
+                </div>
+                <div className="w-full">
+                    <button className="w-full border border-black px-2 py-1 rounded-sm bg-green-500">
+                        {producto.id !== "" ? "Editar" : "Crear"}
+                    </button>
+                </div>
+            </form>
+        </section>
     )
 }
