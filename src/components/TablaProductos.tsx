@@ -13,7 +13,7 @@ interface props {
 export default function TablaProductos({allProductos , setProductoUpdate , updateEstadoProductoHook , deleteProductoForId}:props) {
     return (
         <>
-            <div className="relative overflow-x-auto w-full min-h-[330px] max-h-[330px] sin_scroll_bar">
+            <div className="relative overflow-x-auto w-full sin_scroll_bar">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -42,7 +42,7 @@ export default function TablaProductos({allProductos , setProductoUpdate , updat
                     </thead>
                     <tbody>
                         {allProductos.length > 0 && allProductos.map((n) =>
-                            <tr key={n.id}>
+                            <tr key={n.id} className="border-y border-gray-400">
                                 <th scope="col" className="px-6 py-2">
                                     {n.nombre}
                                 </th>

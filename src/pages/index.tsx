@@ -15,7 +15,7 @@ export default function Index() {
                             to={n.url}
                         >
                             <li
-                                className="w-full bg-slate-400 rounded-lg border border-black hover:cursor-pointer hover:bg-lime-300 text-[20px] p-3"
+                                className="w-full bg-slate-400 rounded-lg border border-black hover:cursor-pointer hover:bg-lime-300 text-[20px] text-center md:text-left p-3"
                             >
                                 {n.titulo}
                             </li>

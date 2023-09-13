@@ -5,6 +5,7 @@ import New_black from "../../svg/new_black";
 import { inicialStateProducto } from "../../const/productos";
 import useProductos from "../../hooks/useProductos";
 import { useState } from "react";
+import { Layout } from "../../layout/Layout";
 
 export default function Productos() {
     const [permitirDelete, setPermitirDelete] = useState<boolean>(true)
@@ -22,7 +23,7 @@ export default function Productos() {
     } = useProductos()
 
     return (
-        <div className="px-5">
+        <Layout>
             <nav className="w-full pt-3 pb-5 flex justify-between items-center">
                 <span className="h-[25px] w-[25px]"></span>
                 <h1 className="text-[35px] font-bold">Productos</h1>
@@ -30,14 +31,14 @@ export default function Productos() {
                     <New_black className="h-[25px] w-[25px]" />
                 </button>
             </nav>
-            <main className="border border-black overflow-y-scroll w-full flex flex-col items-center pb-2">
+            {!renderForm && <main className="min-h-[330px] max-h-[330px] border border-black overflow-y-scroll w-full flex flex-col items-center pb-2">
                 <TablaProductos
                     deleteProductoForId={deleteProductoForId}
                     updateEstadoProductoHook={updateEstadoProductoHook}
                     setProductoUpdate={selectedToForm}
                     allProductos={allProductos}
                 />
-            </main>
+            </main>}
             <Formulario
                 ActionProducto={ActionProducto}
                 producto={prodAction}
@@ -45,7 +46,7 @@ export default function Productos() {
                 HandlerProdutos={HandlerProdutos}
                 EndToForm={selectedToForm}
             />
-            <footer className="pt-32 py-10">
+            {!renderForm && <footer className="pt-32 flex justify-end">
                 <span className="w-full md:w-[250px] flex flex-col gap-3 py-3">
                     <button
                         onClick={() => setPermitirDelete(n => !n)}
@@ -71,8 +72,8 @@ export default function Productos() {
                         Borrar todo
                     </button>
                 </span>
-            </footer>
-        </div>
+            </footer>}
+        </Layout>
     )
 }
 

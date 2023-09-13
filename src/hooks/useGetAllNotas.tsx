@@ -32,7 +32,7 @@ export default function useGetAllNotas(): [
         const newNotas = await deleteNota(id);
         if(newNotas == null) return cartelError("Problemas al eliminar la nota!")
         setNotas(newNotas)
-        cartelOk("Nota removida!")
+        cartelOk("Nota eliminada!")
     }
 
     const handlerText = (text:string , id:string) => {
@@ -52,7 +52,7 @@ export default function useGetAllNotas(): [
         const formData = new FormData(form)
         const text = formData.get("text-of-nota") as string
 
-        if (text == null || text === "") return cartelError("tiene que agregar texto para crear una nota")
+        if (text == null || text === "") return cartelError("Tiene que agregar texto para crear una nota")
 
         const resultado = await addNota({
             id: "0",
