@@ -21,4 +21,9 @@ export const Rutas_main: Ruta[] = [
     url: "/notas",
     titulo: "Notas",
   },
+  {
+    id: "4",
+    url: "/settings",
+    titulo: "Configuraciones",
+  },
 ];

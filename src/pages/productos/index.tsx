@@ -26,12 +26,12 @@ export default function Productos() {
         <Layout>
             <nav className="w-full pt-3 pb-5 flex justify-between items-center">
                 <span className="h-[25px] w-[25px]"></span>
-                <h1 className="text-[35px] font-bold">Productos</h1>
+                <h1 className="text-[35px] font-bold dark:text-gray-100">Productos</h1>
                 <button type="button" onClick={() => selectedToForm()}>
-                    <New_black className="h-[25px] w-[25px]" />
+                    <New_black className="h-[25px] w-[25px] dark:fill-gray-100" />
                 </button>
             </nav>
-            {!renderForm && <main className="min-h-[330px] max-h-[330px] border border-black overflow-y-scroll w-full flex flex-col items-center pb-2">
+            {!renderForm && <main className="min-h-[330px] max-h-[330px] border border-black overflow-y-scroll w-full flex flex-col items-center pb-2 sin_scroll_bar">
                 <TablaProductos
                     deleteProductoForId={deleteProductoForId}
                     updateEstadoProductoHook={updateEstadoProductoHook}
@@ -51,7 +51,7 @@ export default function Productos() {
                     <button
                         onClick={() => setPermitirDelete(n => !n)}
                         type="button"
-                        className={`${permitirDelete ? "bg-red-500" : "bg-green-500"} border border-black px-2 py-1 rounded-sm`}
+                        className={`${permitirDelete ? "bg-red-500" : "bg-green-500"} border border-black px-2 py-1 rounded-sm dark:text-gray-100`}
                     >
                         {permitirDelete ? "Habilitar borrado" : "Desabilitar borrado"}
                     </button>
@@ -59,7 +59,7 @@ export default function Productos() {
                         disabled={permitirDelete}
                         onClick={async () => await resetAllProducto()}
                         type="button"
-                        className={`${permitirDelete && "opacity-80"} border border-black px-2 py-1 rounded-sm bg-yellow-500`}
+                        className={`${permitirDelete && "opacity-80"} border border-black px-2 py-1 rounded-sm bg-yellow-500 dark:text-gray-100`}
                     >
                         Borrar todas las ventas <span className="font-bold">(reset)</span>
                     </button>
@@ -67,7 +67,7 @@ export default function Productos() {
                         disabled={permitirDelete}
                         onClick={async () => await deleteAllProductosHook()}
                         type="button"
-                        className={`${permitirDelete && "opacity-80"} border border-black px-2 py-1 rounded-sm bg-yellow-500`}
+                        className={`${permitirDelete && "opacity-80"} border border-black px-2 py-1 rounded-sm bg-yellow-500 dark:text-gray-100`}
                     >
                         Borrar todo
                     </button>
@@ -91,17 +91,17 @@ const Formulario = ({ producto, EndToForm, render, HandlerProdutos, ActionProduc
         <section className="w-full flex flex-col justify-center items-center">
             <nav className="w-full pt-3 pb-2 flex items-center justify-between">
                 <button type="button" onClick={() => EndToForm(inicialStateProducto, false)}>
-                    <Xmark_black className="h-[25px] w-[25px]" />
+                    <Xmark_black className="h-[25px] w-[25px] dark:fill-gray-100" />
                 </button>
-                <h2 className="text-[16px] font-bold">Formulario para {producto.id !== "" ? "editar" : "crear"}</h2>
+                <h2 className="text-[16px] font-bold dark:text-gray-100">Formulario para {producto.id !== "" ? "editar" : "crear"}</h2>
                 <span className="h-[25px] w-[25px]">
                 </span>
             </nav>
             <form className="w-full md:w-[300px] flex flex-col gap-2 py-3" onSubmit={(e) => ActionProducto(e)}>
                 <div className="w-full flex flex-col">
-                    <label>Nombre</label>
+                    <label className="dark:text-gray-100">Nombre</label>
                     <input
-                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        className="w-full border border-black px-2 py-1 rounded-sm dark:text-gray-100 dark:bg-gray-800"
                         type="text"
                         name="nombre"
                         id="nombre"
@@ -111,9 +111,9 @@ const Formulario = ({ producto, EndToForm, render, HandlerProdutos, ActionProduc
                     />
                 </div>
                 <div className="w-full flex flex-col">
-                    <label>Precio</label>
+                    <label className="dark:text-gray-100">Precio</label>
                     <input
-                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        className="w-full border border-black px-2 py-1 rounded-sm dark:text-gray-100 dark:bg-gray-800"
                         type="number"
                         name="precio"
                         id="precio"
@@ -123,9 +123,9 @@ const Formulario = ({ producto, EndToForm, render, HandlerProdutos, ActionProduc
                     />
                 </div>
                 <div className="w-full flex flex-col">
-                    <label>Costo</label>
+                    <label className="dark:text-gray-100">Costo</label>
                     <input
-                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        className="w-full border border-black px-2 py-1 rounded-sm dark:text-gray-100 dark:bg-gray-800"
                         type="number"
                         name="costo"
                         id="costo"
@@ -135,9 +135,9 @@ const Formulario = ({ producto, EndToForm, render, HandlerProdutos, ActionProduc
                     />
                 </div>
                 <div className="w-full flex flex-col">
-                    <label>Vendidos</label>
+                    <label className="dark:text-gray-100">Vendidos</label>
                     <input
-                        className="w-full border border-black px-2 py-1 rounded-sm"
+                        className="w-full border border-black px-2 py-1 rounded-sm dark:text-gray-100 dark:bg-gray-800"
                         type="number"
                         name="vendidos"
                         id="vendidos"
@@ -147,7 +147,7 @@ const Formulario = ({ producto, EndToForm, render, HandlerProdutos, ActionProduc
                     />
                 </div>
                 <div className="w-full">
-                    <button className="w-full border border-black px-2 py-1 rounded-sm bg-green-500">
+                    <button className="w-full border border-black px-2 py-1 rounded-sm bg-green-500 dark:text-black">
                         {producto.id !== "" ? "Editar" : "Crear"}
                     </button>
                 </div>

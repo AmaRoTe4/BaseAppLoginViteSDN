@@ -7,7 +7,7 @@ interface ParentProps {
 
 export const Layout: React.FC<ParentProps> = ({ children }) => {
   return (
-    <div className="px-5 w-screen h-screen flex flex-col overflow-x-hidden pb-20">
+    <div className="px-5 w-screen h-screen flex flex-col overflow-x-hidden pb-20 dark:bg-black">
       {children}
       <BtnToMain />
     </div>

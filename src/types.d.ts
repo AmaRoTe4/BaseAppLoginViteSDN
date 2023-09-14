@@ -16,3 +16,10 @@ export interface Nota {
    id: string ;
    text:string
 }
+
+export interface Setting {
+  id:string
+  name:string
+  varible:string
+  options:string[]
+}

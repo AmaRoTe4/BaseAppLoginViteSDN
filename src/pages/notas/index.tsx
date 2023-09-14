@@ -18,7 +18,7 @@ export default function Notas() {
     return (
         <Layout>
             <nav className="w-full pt-3 pb-2 flex justify-center">
-                <h1 className="text-[35px] font-bold">Notas</h1>
+                <h1 className="text-[35px] font-bold dark:text-gray-100">Notas</h1>
             </nav>
             <main className="border-y border-black min-h-[330px] max-h-[330px] overflow-y-scroll w-full flex flex-col items-center">
                 <ul className="px-7 py-7 w-full flex justify-center flex-wrap gap-5">
@@ -39,7 +39,7 @@ export default function Notas() {
                         </li>
                     )}
                     {notas.length <= 0 &&
-                        <h3 className="text-[35px] opacity-20 font-bold">Notas...</h3>
+                        <h3 className="text-[35px] opacity-20 font-bold dark:text-gray-100 ">Notas...</h3>
                     }
                 </ul>
             </main>
@@ -54,7 +54,7 @@ export default function Notas() {
                         name="text-of-nota"
                         id="text-of-nota"
                         placeholder="texto de la nota"
-                        className="w-full md:w-[400px] text-[16px] p-2 rounded-md border border-black"
+                        className="w-full md:w-[400px] text-[16px] p-2 rounded-md border border-black dark:text-gray-100 dark:bg-gray-900"
                     />
                     <button className="w-full md:w-[400px] text-[16px] bg-green-500 p-2 rounded-md border border-black">
                         Crear

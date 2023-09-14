@@ -6,8 +6,12 @@ import Controladores from "./pages/controladores"
 import Productos from "./pages/productos"
 import Resumenes from "./pages/resumen"
 import Notas from "./pages/notas"
+import Settings from "./pages/settings"
+import { CargarData } from "./hooks/cargarTema"
 
 function App() {
+  CargarData();
+
   return (
     <BrowserRouter>
       <Routes>
@@ -16,6 +20,7 @@ function App() {
         <Route path="/productos" element={<Productos />} />
         <Route path="/resumen" element={<Resumenes />} />
         <Route path="/notas" element={<Notas />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/404" element={<NotFound />} />
         <Route element={<NotFound />} />
       </Routes>

@@ -17,49 +17,49 @@ export default function TablaProductos({allProductos , setProductoUpdate , updat
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="dark:text-gray-100 px-6 py-3">
                                 Nombre
                             </th>
-                            <th scope="col" className="px-6 py-3 text-end">
+                            <th scope="col" className="dark:text-gray-100 px-6 py-3 text-end">
                                 Precio
                             </th>
-                            <th scope="col" className="px-6 py-3 text-end">
+                            <th scope="col" className="dark:text-gray-100 px-6 py-3 text-end">
                                 Costo
                             </th>
-                            <th scope="col" className="px-6 py-3 text-end">
+                            <th scope="col" className="dark:text-gray-100 px-6 py-3 text-end">
                                 Vendidos
                             </th>
-                            <th scope="col" className="px-6 py-3 text-center">
+                            <th scope="col" className="dark:text-gray-100 px-6 py-3 text-center">
                                 Habilitado
                             </th>
-                            <th scope="col" className="px-6 py-3 text-center">
+                            <th scope="col" className="dark:text-gray-100 px-6 py-3 text-center">
                                 Actualizar
                             </th>
-                            <th scope="col" className="px-6 py-3 text-center">
+                            <th scope="col" className="dark:text-gray-100 px-6 py-3 text-center">
                                 Eliminar
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="sin_scroll_bar">
                         {allProductos.length > 0 && allProductos.map((n) =>
                             <tr key={n.id} className="border-y border-gray-400">
-                                <th scope="col" className="px-6 py-2">
+                                <th scope="col" className="dark:text-gray-100 px-6 py-2">
                                     {n.nombre}
                                 </th>
-                                <th scope="col" className="px-6 py-2 text-end">
+                                <th scope="col" className="dark:text-gray-100 px-6 py-2 text-end">
                                     ${n.precio}
                                 </th>
-                                <th scope="col" className="px-6 py-2 text-end">
+                                <th scope="col" className="dark:text-gray-100 px-6 py-2 text-end">
                                     ${n.costo}
                                 </th>
-                                <th scope="col" className="px-6 py-2 text-end">
+                                <th scope="col" className="dark:text-gray-100 px-6 py-2 text-end">
                                     {n.vendidos}
                                 </th>
-                                <th scope="col" className="px-6 py-2 text-center">
+                                <th scope="col" className="dark:text-gray-100 px-6 py-2 text-center">
                                     <button
                                         className={`
                                                 ${n.estado ? "bg-green-600" : "bg-red-600"}
-                                                px-2 py-1 text-black rounded-md
+                                                px-2 py-1 text-black rounded-md dark:text-gray-100
                                                 `}
                                         type="button"
                                         onClick={async () => await updateEstadoProductoHook(n.id, !n.estado)}
@@ -73,7 +73,7 @@ export default function TablaProductos({allProductos , setProductoUpdate , updat
                                         type="button"
                                         onClick={() => setProductoUpdate(n)}
                                     >
-                                        <Update_black className="h-[25px]" />
+                                        <Update_black className="h-[25px] dark:fill-gray-100" />
                                     </button>
                                 </th>
                                 <th scope="col" className="px-6 py-2 text-center">
@@ -82,7 +82,7 @@ export default function TablaProductos({allProductos , setProductoUpdate , updat
                                         type="button"
                                         onClick={async () => await deleteProductoForId(n.id)}
                                     >
-                                        <Xmark_black className="h-[25px]" />
+                                        <Xmark_black className="h-[25px] dark:fill-gray-100" />
                                     </button>
                                 </th>
                             </tr>
@@ -91,7 +91,7 @@ export default function TablaProductos({allProductos , setProductoUpdate , updat
                 </table>
             </div>
             {allProductos.length <= 0 &&
-                <h3 className="text-[35px] opacity-20 font-bold">Productos...</h3>
+                <h3 className="text-[35px] opacity-20 font-bold dark:text-gray-100">Productos...</h3>
             }
         </>
     )
